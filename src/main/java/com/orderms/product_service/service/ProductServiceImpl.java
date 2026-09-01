@@ -38,6 +38,10 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id).orElseThrow(() ->
                 new ProductNotFoundExcpetion("Product not found with id " + id));
 
+        if(productRepository.existsBySkuAndIdNot(productRequestDTO.getSku(),id)) {
+            throw new DuplicateSkuException("Product already exist " + productRequestDTO.getSku());
+        }
+
         productMapper.UpdateProductEntity(product,productRequestDTO);
         Product updatedProduct = productRepository.save(product);
         return productMapper.toResponseDTO(updatedProduct);
