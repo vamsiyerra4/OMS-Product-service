@@ -5,19 +5,5 @@ spring:
   application:
     name: product-service
 
-  datasource:
-    url : jdbc:postgresql://localhost:5432/product_db
-    username : vamsi
-    password:
-    driver-class-name: org.postgresql.Driver
-
-  jpa:
-    hibernate :
-      ddl-auto : update
-    show-sql : true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,metrics,info
+  config:
+    import: optional:configserver:http://localhost:8888
